@@ -9,66 +9,69 @@ export default function Home() {
   const [grade, setGrade] = useState('');
   const [credits, setCredits] = useState('');
   const [gpa, setGpa] = useState(null);
+  const [error, setError] = useState(null);
 
-  // Load courses from LocalStorage
+  // Load courses from LocalStorage on mount
   useEffect(() => {
-    const savedCourses = JSON.parse(localStorage.getItem('courses') || '[]');
-    setCourses(savedCourses);
+    const storedCourses = JSON.parse(localStorage.getItem('courses') || '[]');
+    setCourses(storedCourses);
   }, []);
 
-  // Save courses to LocalStorage
+  // Save courses to LocalStorage whenever they change
   useEffect(() => {
-    try {
-      localStorage.setItem('courses', JSON.stringify(courses));
-    } catch (error) {
-      console.error('Failed to save courses:', error);
-    }
+    localStorage.setItem('courses', JSON.stringify(courses));
   }, [courses]);
-
-  // Grade points
-  const gradePoints = {
-    'A': 4.0,
-    'B': 3.0,
-    'C': 2.0,
-    'D': 1.0,
-    'F': 0.0,
-  };
 
   // Add course
   const handleAddCourse = (e) => {
     e.preventDefault();
-    if (!courseName || !grade || !credits) return;
-    const newCourse = {
+    if (!courseName || !grade || !credits) {
+      setError('Please fill in all fields');
+      return;
+    }
+    const gradePoints = { A: 4.0, B: 3.0, C: 2.0, D: 1.0, F: 0.0 };
+    if (!gradePoints[grade]) {
+      setError('Invalid grade');
+      return;
+    }
+    const course = {
       name: courseName,
       grade,
       credits: parseFloat(credits),
       points: gradePoints[grade] * parseFloat(credits),
     };
-    setCourses([...courses, newCourse]);
+    setCourses([...courses, course]);
     setCourseName('');
     setGrade('');
     setCredits('');
+    setError(null);
   };
 
   // Calculate GPA
   const calculateGpa = () => {
-    if (courses.length === 0) return;
+    if (courses.length === 0) {
+      setError('No courses to calculate GPA');
+      return;
+    }
     const totalPoints = courses.reduce((sum, course) => sum + course.points, 0);
     const totalCredits = courses.reduce((sum, course) => sum + course.credits, 0);
-    const gpaValue = (totalPoints / totalCredits).toFixed(2);
-    setGpa(gpaValue);
+    const gpa = (totalPoints / totalCredits).toFixed(2);
+    setGpa(parseFloat(gpa));
+    setError(null);
   };
 
   // Clear history
   const clearHistory = () => {
     setCourses([]);
     setGpa(null);
+    setError(null);
     localStorage.removeItem('courses');
   };
 
   return (
     <div className="container">
       <h1>GPA Calculator</h1>
+      {error && <div className="error">{error}</div>}
       
       {/* Form */}
       <form onSubmit={handleAddCourse} className="form">
