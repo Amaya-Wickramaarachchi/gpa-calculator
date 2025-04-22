@@ -1,0 +1,27 @@
+# IT31023 Project Submission Report
+
+## Student
+- Name: W A P A WICKRAMAARACHCHI
+- Index Number: ITBNM-2211-0195
+- Course: System Administration & Maintenance (IT31023)
+- Academic Year 3 Semester 1
+- Intake - 11 
+
+## GitHub Repository
+- URL: https://github.com/amaya-wickramaarachchi/gpa-calculator
+- Branch: main
+
+## Deliverables
+- **Code**: `app/`, `tests/`, `terraform/`
+- **CI/CD**: `.github/workflows/main.yml`
+- **Wiki**: `docs/wiki/` (Home, Architecture, Contributing, Setup, API)
+- **Documentation**: `docs/PRD.md`, `docs/TDD.md`, `docs/Runbook.md`, `docs/api/openapi.yaml`
+- **Presentation**: `docs/Presentation.md`
+
+## AI Usage
+- Used AI coding assistant (Grok) for generating Terraform templates and OpenAPI specs.
+- All code reviewed and customized by student.
+
+## Deployment
+- Vercel: https://gpa-calculator-rust.vercel.app/
+- AWS: DynamoDB, S3, CloudFront (premium features)
