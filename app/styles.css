@@ -1,123 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+:root {
+  --primary: #1A3C5A; /* Navy blue */
+  --secondary: #2DD4BF; /* Teal */
+  --accent: #F97316; /* Orange */
+  --background: #F8FAFC; /* Soft white */
+  --text: #1F2937; /* Dark gray */
+  --card-bg: #FFFFFF;
+  --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --gradient: linear-gradient(135deg, #1A3C5A, #2DD4BF);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--text);
+}
+
 .landing-container {
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 20px;
-  font-family: Arial, sans-serif;
+  padding: 24px;
 }
 
 .header {
   text-align: center;
-  padding: 40px 20px;
-  background-color: #f0f4f8;
-  border-radius: 8px;
-  margin-bottom: 30px;
+  padding: 48px 24px;
+  background: var(--gradient);
+  border-radius: 12px;
+  margin-bottom: 32px;
+  color: white;
 }
 
 .header h1 {
-  font-size: 2.5em;
-  margin-bottom: 10px;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 12px;
 }
 
 .header p {
-  font-size: 1.2em;
-  color: #555;
+  font-size: 1.25rem;
+  font-weight: 400;
 }
 
 .intro {
-  margin-bottom: 40px;
+  margin-bottom: 48px;
 }
 
 .intro h2 {
-  font-size: 1.8em;
-  margin-bottom: 15px;
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-bottom: 16px;
 }
 
 .intro p {
-  font-size: 1.1em;
+  font-size: 1.125rem;
   line-height: 1.6;
-  color: #333;
 }
 
 .button-group {
   display: flex;
-  gap: 15px;
-  margin-top: 20px;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 24px;
 }
 
 .button {
   padding: 12px 24px;
-  font-size: 16px;
+  font-size: 1rem;
+  font-weight: 500;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
+  transition: transform 0.2s, background-color 0.3s;
+}
+
+.button:hover {
+  transform: translateY(-2px);
 }
 
 .button-blue {
-  background-color: #007bff;
+  background-color: var(--secondary);
   color: white;
 }
 
 .button-green {
-  background-color: #28a745;
+  background-color: #10B981;
   color: white;
 }
 
 .button-red {
-  background-color: #dc3545;
+  background-color: #EF4444;
   color: white;
 }
 
-.button-outline {
-  background: none;
-  border: 2px solid #007bff;
-  color: #007bff;
-}
-
-.button-link {
-  background: none;
-  color: #007bff;
-  border: none;
-  padding: 5px;
-  font-size: 14px;
-}
-
-.button:hover {
-  opacity: 0.9;
-}
-
-.about {
-  padding: 20px;
-  background-color: #f8f9fa;
-  border-radius: 8px;
-}
-
-.about h2 {
-  font-size: 1.8em;
-  margin-bottom: 15px;
-}
-
-.about p {
-  font-size: 1.1em;
-  line-height: 1.6;
-  color: #333;
-  margin-bottom: 15px;
-}
-
 .container {
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 20px;
-  font-family: Arial, sans-serif;
+  padding: 24px;
 }
 
 .form {
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  margin-bottom: 20px;
+  gap: 16px;
+  margin-bottom: 24px;
+  background-color: var(--card-bg);
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
 }
 
 .form-group {
@@ -126,85 +123,147 @@
 }
 
 .form-group label {
-  margin-bottom: 5px;
-  font-weight: bold;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: var(--primary);
 }
 
 .form-group input,
 .form-group select {
-  padding: 8px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #D1D5DB;
+  border-radius: 8px;
+  background-color: #F9FAFB;
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--secondary);
 }
 
 .result {
-  margin-top: 20px;
-  padding: 10px;
-  background-color: #f8f9fa;
-  border-radius: 4px;
+  margin-top: 24px;
+  padding: 16px;
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  text-align: center;
+  animation: fadeIn 0.5s ease-in;
 }
 
 .history {
-  margin-top: 20px;
+  margin-top: 24px;
+  background-color: var(--card-bg);
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  animation: fadeIn 0.5s ease-in;
 }
 
 .semester-block {
-  margin-bottom: 30px;
+  margin-bottom: 32px;
 }
 
 .semester-block h3 {
-  margin-bottom: 10px;
+  margin-bottom: 12px;
+  font-weight: 600;
+  color: var(--primary);
 }
 
 .semester-block p {
-  margin-bottom: 10px;
+  margin-bottom: 12px;
+  font-size: 0.875rem;
 }
 
 .error {
-  color: red;
-  margin-bottom: 10px;
+  color: #EF4444;
+  margin-bottom: 12px;
+  font-weight: 500;
 }
 
 .motivation {
-  color: green;
-  margin-bottom: 10px;
-  font-weight: bold;
+  color: var(--accent);
+  margin-bottom: 12px;
+  font-weight: 600;
+  font-size: 1.125rem;
 }
 
 .grade-values {
-  margin-top: 30px;
+  margin-top: 32px;
+  background-color: var(--card-bg);
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
 }
 
 .grade-table,
-.course-table,
-.semester-table {
+.course-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 10px;
+  margin-top: 16px;
 }
 
 .grade-table th,
 .grade-table td,
 .course-table th,
-.course-table td,
-.semester-table th,
-.semester-table td {
-  border: 1px solid #ccc;
-  padding: 8px;
+.course-table td {
+  border: 1px solid #E5E7EB;
+  padding: 12px;
   text-align: left;
 }
 
 .grade-table th,
-.course-table th,
-.semester-table th {
-  background-color: #f0f4f8;
-  font-weight: bold;
+.course-table th {
+  background-color: var(--primary);
+  color: white;
+  font-weight: 600;
 }
 
-.user-info {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 20px;
+.grade-table td,
+.course-table td {
+  background-color: var(--card-bg);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container, .landing-container {
+    padding: 16px;
+  }
+
+  .header h1 {
+    font-size: 2rem;
+  }
+
+  .header p {
+    font-size: 1rem;
+  }
+
+  .form {
+    padding: 16px;
+  }
+
+  .button {
+    width: 100%;
+    text-align: center;
+  }
+
+  .course-table,
+  .grade-table {
+    font-size: 0.875rem;
+  }
+
+  .course-table th,
+  .course-table td,
+  .grade-table th,
+  .grade-table td {
+    padding: 8px;
+  }
 }

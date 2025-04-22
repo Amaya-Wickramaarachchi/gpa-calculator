@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import '../styles.css';
 
 export default function Calculator() {
-  const [user, setUser] = useState(null);
   const [academicYear, setAcademicYear] = useState('');
   const [semester, setSemester] = useState('');
   const [courses, setCourses] = useState([]);
@@ -35,38 +34,25 @@ export default function Calculator() {
     { grade: 'F', points: 0.00, marks: '<25' },
   ];
 
-  // Load user and data
+  // Load data
   useEffect(() => {
-    const currentUser = localStorage.getItem('currentUser');
-    if (currentUser) {
-      setUser(currentUser);
-      const storedCourses = JSON.parse(localStorage.getItem(`courses_${currentUser}`) || '[]');
-      const storedHistory = JSON.parse(localStorage.getItem(`semesterHistory_${currentUser}`) || '[]');
-      setCourses(storedCourses);
-      setSemesterHistory(storedHistory);
-      calculateFgpa(storedHistory);
-    } else {
-      const storedCourses = JSON.parse(localStorage.getItem('courses') || '[]');
-      setCourses(storedCourses);
-    }
+    const storedCourses = JSON.parse(localStorage.getItem('courses') || '[]');
+    const storedHistory = JSON.parse(localStorage.getItem('semesterHistory') || '[]');
+    setCourses(storedCourses);
+    setSemesterHistory(storedHistory);
+    calculateFgpa(storedHistory);
   }, []);
 
   // Save courses
   useEffect(() => {
-    if (user) {
-      localStorage.setItem(`courses_${user}`, JSON.stringify(courses));
-    } else {
-      localStorage.setItem('courses', JSON.stringify(courses));
-    }
-  }, [courses, user]);
+    localStorage.setItem('courses', JSON.stringify(courses));
+  }, [courses]);
 
   // Save semester history
   useEffect(() => {
-    if (user) {
-      localStorage.setItem(`semesterHistory_${user}`, JSON.stringify(semesterHistory));
-      calculateFgpa(semesterHistory);
-    }
-  }, [semesterHistory, user]);
+    localStorage.setItem('semesterHistory', JSON.stringify(semesterHistory));
+    calculateFgpa(semesterHistory);
+  }, [semesterHistory]);
 
   // Calculate FGPA
   const calculateFgpa = (history) => {
@@ -150,7 +136,7 @@ export default function Calculator() {
     }
   };
 
-  // Save semester (registered users)
+  // Save semester
   const saveSemester = (e) => {
     e.preventDefault();
     if (!gpa) {
@@ -181,27 +167,27 @@ export default function Calculator() {
     setError(null);
   };
 
-  // Download report (registered users)
+  // Download report
   const downloadReport = () => {
-    if (!user || !gpa) {
+    if (!gpa) {
       setError('Calculate GPA to download a report');
       return;
     }
     const report = `
 GPA Calculator Report
 --------------------
-Username: ${user}
 Academic Year: ${academicYear}
 Semester: ${semester}
 Label: ${semesterLabel || 'N/A'}
 Date: ${new Date().toLocaleDateString()}
 
 Semester Courses:
-Course Name | Grade | Credits
-${courses.map((course) => `${course.name.padEnd(20)} | ${course.grade.padEnd(5)} | ${course.credits}`).join('\n')}
+${'Course Name'.padEnd(30)} | ${'Grade'.padEnd(7)} | ${'Credits'.padEnd(8)} | Weight
+${'-'.repeat(30)} | ${'-'.repeat(7)} | ${'-'.repeat(8)} | -------
+${courses.map((course) => `${course.name.padEnd(30)} | ${course.grade.padEnd(7)} | ${course.credits.toString().padEnd(8)} | ${course.weight}`).join('\n')}
 
 Semester GPA: ${gpa}
-Overall GPA: ${fgpa || 'N/A'}
+${fgpa ? `Overall GPA: ${fgpa}` : ''}
 
 Motivational Message:
 ${motivation}
@@ -210,53 +196,30 @@ ${motivation}
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `gpa_report_${user}_${academicYear}_${semester}.txt`;
+    a.download = `gpa_report_${academicYear}_${semester}.txt`;
     a.click();
     URL.revokeObjectURL(url);
   };
 
-  // Clear history
+  // Clear courses
   const clearHistory = () => {
     setCourses([]);
     setGpa(null);
     setMotivation('');
     setError(null);
-    if (user) {
-      localStorage.removeItem(`courses_${user}`);
-    } else {
-      localStorage.removeItem('courses');
-    }
-  };
-
-  // Logout
-  const handleLogout = () => {
-    localStorage.removeItem('currentUser');
-    setUser(null);
-    setCourses(JSON.parse(localStorage.getItem('courses') || '[]'));
-    setSemesterHistory([]);
-    setGpa(null);
-    setFgpa(null);
-    setMotivation('');
-    setAcademicYear('');
-    setSemester('');
+    localStorage.removeItem('courses');
   };
 
   return (
     <div className="container">
-      <h1>GPA Calculator</h1>
-      {user && (
-        <div className="user-info">
-          <p>Logged in as: {user}</p>
-          <button onClick={handleLogout} className="button button-red">Logout</button>
-        </div>
-      )}
-      {error && <div className="error">{error}</div>}
-      {motivation && <div className="motivation">{motivation}</div>}
+      <h1><i className="fas fa-graduation-cap"></i> GPA Calculator</h1>
+      {error && <div className="error"><i className="fas fa-exclamation-circle"></i> {error}</div>}
+      {motivation && <div className="motivation"><i className="fas fa-star"></i> {motivation}</div>}
 
       {/* Academic Year and Semester Selection */}
       <form className="form">
         <div className="form-group">
-          <label>Academic Year</label>
+          <label><i className="fas fa-calendar"></i> Academic Year</label>
           <select
             value={academicYear}
             onChange={(e) => setAcademicYear(e.target.value)}
@@ -270,7 +233,7 @@ ${motivation}
           </select>
         </div>
         <div className="form-group">
-          <label>Semester</label>
+          <label><i className="fas fa-calendar-alt"></i> Semester</label>
           <select
             value={semester}
             onChange={(e) => setSemester(e.target.value)}
@@ -287,7 +250,7 @@ ${motivation}
       {academicYear && semester && (
         <form onSubmit={handleAddCourse} className="form">
           <div className="form-group">
-            <label>Course Name</label>
+            <label><i className="fas fa-book"></i> Course Name</label>
             <input
               type="text"
               value={courseName}
@@ -296,7 +259,7 @@ ${motivation}
             />
           </div>
           <div className="form-group">
-            <label>Credits</label>
+            <label><i className="fas fa-credit-card"></i> Credits</label>
             <input
               type="number"
               value={credits}
@@ -307,7 +270,7 @@ ${motivation}
             />
           </div>
           <div className="form-group">
-            <label>Grade</label>
+            <label><i className="fas fa-award"></i> Grade</label>
             <select value={grade} onChange={(e) => setGrade(e.target.value)}>
               <option value="">Select Grade</option>
               {gradeSystem.map((g) => (
@@ -318,25 +281,25 @@ ${motivation}
             </select>
           </div>
           <div className="form-group">
-            <label>Weight</label>
+            <label><i className="fas fa-weight"></i> Weight</label>
             <select value={weight} onChange={(e) => setWeight(e.target.value)}>
               <option value="Regular">Regular</option>
               <option value="Weight">Weight</option>
             </select>
           </div>
-          <button type="submit" className="button button-blue">Add Course</button>
+          <button type="submit" className="button button-blue"><i className="fas fa-plus"></i> Add Course</button>
         </form>
       )}
 
       {/* Calculate GPA */}
       {courses.length > 0 && (
-        <button onClick={calculateGpa} className="button button-green">Calculate GPA</button>
+        <button onClick={calculateGpa} className="button button-green"><i className="fas fa-calculator"></i> Calculate GPA</button>
       )}
 
       {/* Semester Course Table and GPA */}
       {courses.length > 0 && (
         <div className="history">
-          <h2>{semesterLabel || `${semester} Courses`}</h2>
+          <h2><i className="fas fa-list"></i> {semesterLabel || `${semester} Courses`}</h2>
           <table className="course-table">
             <thead>
               <tr>
@@ -359,19 +322,19 @@ ${motivation}
           </table>
           {gpa && (
             <div className="result">
-              <h2>Semester GPA: {gpa}</h2>
+              <h2><i className="fas fa-chart-line"></i> Semester GPA: {gpa}</h2>
             </div>
           )}
-          <button onClick={clearHistory} className="button button-red">Clear Courses</button>
+          <button onClick={clearHistory} className="button button-red"><i className="fas fa-trash"></i> Clear Courses</button>
         </div>
       )}
 
-      {/* Save Semester and Download Report (Registered Users) */}
-      {user && gpa && (
+      {/* Save Semester and Download Report */}
+      {gpa && (
         <div className="form">
           <form onSubmit={saveSemester} className="form">
             <div className="form-group">
-              <label>Semester Label</label>
+              <label><i className="fas fa-tag"></i> Semester Label</label>
               <input
                 type="text"
                 value={semesterLabel}
@@ -379,23 +342,23 @@ ${motivation}
                 placeholder="e.g., Fall 2025"
               />
             </div>
-            <button type="submit" className="button button-blue">Save Semester</button>
+            <button type="submit" className="button button-blue"><i className="fas fa-save"></i> Save Semester</button>
           </form>
-          <button onClick={downloadReport} className="button button-green">Download Report</button>
+          <button onClick={downloadReport} className="button button-green"><i className="fas fa-download"></i> Download Report</button>
         </div>
       )}
 
-      {/* Overall GPA (Registered Users) */}
-      {user && fgpa && (
+      {/* Overall GPA */}
+      {fgpa && (
         <div className="result">
-          <h2>Overall GPA: {fgpa}</h2>
+          <h2><i className="fas fa-trophy"></i> Overall GPA: {fgpa}</h2>
         </div>
       )}
 
-      {/* Semester History (Registered Users) */}
-      {user && semesterHistory.length > 0 && (
+      {/* Semester History */}
+      {semesterHistory.length > 0 && (
         <div className="history">
-          <h2>Semester History</h2>
+          <h2><i className="fas fa-history"></i> Semester History</h2>
           {semesterHistory.map((sem, index) => (
             <div key={index} className="semester-block">
               <h3>{sem.label}</h3>
@@ -421,7 +384,7 @@ ${motivation}
                 </tbody>
               </table>
               <div className="result">
-                <h2>Semester GPA: {sem.gpa}</h2>
+                <h2><i className="fas fa-chart-line"></i> Semester GPA: {sem.gpa}</h2>
               </div>
             </div>
           ))}
@@ -430,7 +393,7 @@ ${motivation}
 
       {/* Grade Values Table (Bottom) */}
       <div className="grade-values">
-        <h3>Grade Values</h3>
+        <h3><i className="fas fa-table"></i> Grade Values</h3>
         <table className="grade-table">
           <thead>
             <tr>
