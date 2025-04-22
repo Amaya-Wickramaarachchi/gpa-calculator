@@ -1,110 +1,144 @@
-/* app/styles.css */
-.container {
-  min-height: 100vh;
-  background-color: #f0f0f0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.landing-container {
+  max-width: 1000px;
+  margin: 0 auto;
   padding: 20px;
+  font-family: Arial, sans-serif;
 }
 
-h1 {
-  font-size: 2.5rem;
-  color: #1e90ff;
+.header {
+  text-align: center;
+  padding: 40px 20px;
+  background-color: #f0f4f8;
+  border-radius: 8px;
   margin-bottom: 30px;
 }
 
-.form {
-  background-color: white;
+.header h1 {
+  font-size: 2.5em;
+  margin-bottom: 10px;
+}
+
+.header p {
+  font-size: 1.2em;
+  color: #555;
+}
+
+.intro {
+  margin-bottom: 40px;
+}
+
+.intro h2 {
+  font-size: 1.8em;
+  margin-bottom: 15px;
+}
+
+.intro p {
+  font-size: 1.1em;
+  line-height: 1.6;
+  color: #333;
+}
+
+.button-group {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.button {
+  padding: 12px 24px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.button-blue {
+  background-color: #007bff;
+  color: white;
+}
+
+.button-green {
+  background-color: #28a745;
+  color: white;
+}
+
+.button-outline {
+  background: none;
+  border: 2px solid #007bff;
+  color: #007bff;
+}
+
+.button:hover {
+  opacity: 0.9;
+}
+
+.about {
   padding: 20px;
+  background-color: #f8f9fa;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 400px;
+}
+
+.about h2 {
+  font-size: 1.8em;
+  margin-bottom: 15px;
+}
+
+.about p {
+  font-size: 1.1em;
+  line-height: 1.6;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
   margin-bottom: 20px;
 }
 
 .form-group {
-  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
 }
 
 .form-group label {
-  display: block;
-  color: #333;
   margin-bottom: 5px;
+  font-weight: bold;
 }
 
 .form-group input,
 .form-group select {
-  width: 100%;
   padding: 8px;
+  font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  box-sizing: border-box;
-}
-
-.button {
-  width: 100%;
-  padding: 10px;
-  border: none;
-  border-radius: 4px;
-  color: white;
-  cursor: pointer;
-  margin-top: 10px;
-}
-
-.button-blue {
-  background-color: #1e90ff;
-}
-
-.button-blue:hover {
-  background-color: #1c86ee;
-}
-
-.button-green {
-  background-color: #32cd32;
-}
-
-.button-green:hover {
-  background-color: #2e8b57;
 }
 
 .button-red {
-  background-color: #ff4500;
-}
-
-.button-red:hover {
-  background-color: #dc143c;
+  background-color: #dc3545;
+  color: white;
 }
 
 .result {
-  background-color: white;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 400px;
-  margin-bottom: 20px;
-}
-
-.result h2 {
-  font-size: 1.5rem;
-  color: #333;
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #f8f9fa;
+  border-radius: 4px;
 }
 
 .history {
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 400px;
-}
-
-.history h2 {
-  font-size: 1.5rem;
-  color: #333;
-  margin-bottom: 15px;
+  margin-top: 20px;
 }
 
 .history ul {
@@ -113,21 +147,25 @@ h1 {
 }
 
 .history li {
-  padding: 10px 0;
-  border-bottom: 1px solid #eee;
-}
-
-.history li:last-child {
-  border-bottom: none;
+  padding: 5px 0;
 }
 
 .error {
-  background-color: #ffe6e6;
-  color: #d32f2f;
-  padding: 10px;
-  border-radius: 4px;
+  color: red;
+  margin-bottom: 10px;
+}
+
+.grade-values {
   margin-bottom: 20px;
-  width: 100%;
-  max-width: 400px;
-  text-align: center;
+}
+
+.grade-values ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 15px;
+}
+
+.grade-values li {
+  font-size: 1.1em;
 }
