@@ -12,6 +12,14 @@
       "dest": "/_next/$1"
     },
     {
+      "src": "/calculator",
+      "dest": "/calculator"
+    },
+    {
+      "src": "/auth",
+      "dest": "/auth"
+    },
+    {
       "src": "/(.*)",
       "dest": "/"
     }
