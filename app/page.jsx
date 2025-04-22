@@ -19,7 +19,7 @@ export default function Home() {
           Easily calculate your GPA by adding courses, grades, and credits. Perfect for students who want a quick and reliable way to track their academic progress. Get started now or register to save your semester history!
         </p>
         <div className="button-group">
-          <Link href="/calculator">
+          <Link href="/calculator/">
             <button className="button button-blue">Get Started</button>
           </Link>
           <Link href="/auth">
