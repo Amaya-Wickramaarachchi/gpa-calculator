@@ -1,6 +1,6 @@
 "use client";
 
-import '../styles.css';
+import '../../styles.css';
 
 export default function Auth() {
   return (
