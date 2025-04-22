@@ -50,8 +50,12 @@ export default function Calculator() {
 
   // Save semester history
   useEffect(() => {
-    localStorage.setItem('semesterHistory', JSON.stringify(semesterHistory));
-    calculateFgpa(semesterHistory);
+    try {
+      localStorage.setItem('semesterHistory', JSON.stringify(semesterHistory));
+      calculateFgpa(semesterHistory);
+    } catch (err) {
+      console.error('Error saving semesterHistory to LocalStorage:', err);
+    }
   }, [semesterHistory]);
 
   // Calculate FGPA
@@ -139,25 +143,29 @@ export default function Calculator() {
   // Save semester
   const saveSemester = (e) => {
     e.preventDefault();
+    console.log('saveSemester triggered', { gpa, semesterLabel, courses });
     if (!gpa) {
       setError('Calculate GPA first');
+      console.log('Error: GPA not calculated');
       return;
     }
     if (!semesterLabel) {
       setError('Enter a semester label');
+      console.log('Error: Semester label missing');
       return;
     }
     const totalCredits = courses.reduce((sum, course) => sum + course.credits, 0);
-    const semester = {
+    const semesterData = {
       label: semesterLabel,
       academicYear,
-      semester,
+      semesterName: semester,
       gpa,
       totalCredits,
       courses: [...courses],
       date: new Date().toISOString(),
     };
-    setSemesterHistory([...semesterHistory, semester]);
+    console.log('Saving semester:', semesterData);
+    setSemesterHistory([...semesterHistory, semesterData]);
     setCourses([]);
     setGpa(null);
     setMotivation('');
@@ -165,6 +173,16 @@ export default function Calculator() {
     setAcademicYear('');
     setSemester('');
     setError(null);
+    console.log('Semester saved, state reset');
+  };
+
+  // Clear semester history
+  const clearSemesterHistory = () => {
+    setSemesterHistory([]);
+    setFgpa(null);
+    localStorage.removeItem('semesterHistory');
+    setError(null);
+    console.log('Semester history cleared');
   };
 
   // Download report
@@ -202,7 +220,7 @@ ${motivation}
   };
 
   // Clear courses
-  const clearHistory = () => {
+  const clearCourses = () => {
     setCourses([]);
     setGpa(null);
     setMotivation('');
@@ -325,7 +343,7 @@ ${motivation}
               <h2><i className="fas fa-chart-line"></i> Semester GPA: {gpa}</h2>
             </div>
           )}
-          <button onClick={clearHistory} className="button button-red"><i className="fas fa-trash"></i> Clear Courses</button>
+          <button onClick={clearCourses} className="button button-red"><i className="fas fa-trash"></i> Clear Courses</button>
         </div>
       )}
 
@@ -362,7 +380,7 @@ ${motivation}
           {semesterHistory.map((sem, index) => (
             <div key={index} className="semester-block">
               <h3>{sem.label}</h3>
-              <p>Academic Year: {sem.academicYear}, Semester: {sem.semester}</p>
+              <p>Academic Year: {sem.academicYear}, Semester: {sem.semesterName}</p>
               <table className="course-table">
                 <thead>
                   <tr>
@@ -388,6 +406,7 @@ ${motivation}
               </div>
             </div>
           ))}
+          <button onClick={clearSemesterHistory} className="button button-red"><i className="fas fa-trash"></i> Clear History</button>
         </div>
       )}
 

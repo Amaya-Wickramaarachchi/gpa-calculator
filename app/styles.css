@@ -29,48 +29,145 @@ body {
   padding: 24px;
 }
 
-.header {
+/* Hero Section */
+.hero {
+  position: relative;
   text-align: center;
-  padding: 48px 24px;
+  padding: 80px 24px;
   background: var(--gradient);
   border-radius: 12px;
-  margin-bottom: 32px;
   color: white;
-}
-
-.header h1 {
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 12px;
-}
-
-.header p {
-  font-size: 1.25rem;
-  font-weight: 400;
-}
-
-.intro {
+  overflow: hidden;
   margin-bottom: 48px;
 }
 
-.intro h2 {
-  font-size: 1.75rem;
+.hero-content {
+  position: relative;
+  z-index: 1;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  animation: fadeIn 1s ease-in;
+}
+
+.tagline {
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin-bottom: 24px;
+  animation: fadeIn 1.2s ease-in;
+}
+
+.cta-button {
+  padding: 16px 32px;
+  font-size: 1.25rem;
   font-weight: 600;
+  background-color: var(--accent);
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transform: scale(1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.cta-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.wave-animation {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28.08,54.4-4.09,108.8-24.67,158-28.08,49.2-3.41,95.6,7.76,144,7.76,48.4,0,94.8-11.17,144-7.76,49.2,3.41,103.6,23.99,158,28.08,54.4,4.09,110.2-5.88,158-28.08C964.41,18.12,1010.2,7.95,1058,11.36c47.8,3.41,94.2,24.59,142,7.76V0H0Z" fill="rgba(255,255,255,0.1)"/></svg>');
+  background-size: cover;
+  animation: wave 10s linear infinite;
+}
+
+@keyframes wave {
+  0% { background-position: 0 0; }
+  100% { background-position: 1200px 0; }
+}
+
+/* Features Section */
+.features {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.features h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 32px;
+  color: var(--primary);
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+}
+
+.feature-card {
+  background-color: var(--card-bg);
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  text-align: center;
+  transition: transform 0.3s;
+  animation: fadeInUp 0.8s ease-in;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+}
+
+.feature-card i {
+  font-size: 2.5rem;
+  color: var(--secondary);
   margin-bottom: 16px;
 }
 
-.intro p {
+.feature-card h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: var(--primary);
+}
+
+.feature-card p {
+  font-size: 1rem;
+  color: var(--text);
+}
+
+/* Motivational Section */
+.motivation-section {
+  text-align: center;
+  padding: 48px 24px;
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  margin-bottom: 48px;
+}
+
+.motivation-section h2 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: var(--primary);
+}
+
+.motivation-section p {
   font-size: 1.125rem;
-  line-height: 1.6;
+  color: var(--text);
 }
 
-.button-group {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  margin-top: 24px;
-}
-
+/* General Styles */
 .button {
   padding: 12px 24px;
   font-size: 1rem;
@@ -232,18 +329,52 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .container, .landing-container {
     padding: 16px;
   }
 
-  .header h1 {
+  .hero {
+    padding: 48px 16px;
+  }
+
+  .hero h1 {
     font-size: 2rem;
   }
 
-  .header p {
+  .tagline {
+    font-size: 1.125rem;
+  }
+
+  .cta-button {
+    padding: 12px 24px;
     font-size: 1rem;
+  }
+
+  .features h2 {
+    font-size: 1.5rem;
+  }
+
+  .feature-card {
+    padding: 16px;
+  }
+
+  .feature-card i {
+    font-size: 2rem;
+  }
+
+  .motivation-section {
+    padding: 32px 16px;
+  }
+
+  .motivation-section h2 {
+    font-size: 1.5rem;
   }
 
   .form {
