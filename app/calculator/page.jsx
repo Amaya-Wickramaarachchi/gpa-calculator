@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import '../../styles.css';
+import '../styles.css';
 
 export default function Calculator() {
   const [courses, setCourses] = useState([]);
