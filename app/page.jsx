@@ -1,138 +1,46 @@
 "use client";
 
-import { useState, useEffect } from 'react';
-import './styles.css';
+import Link from 'next/link';
+import '../styles.css';
 
 export default function Home() {
-  const [courses, setCourses] = useState([]);
-  const [courseName, setCourseName] = useState('');
-  const [grade, setGrade] = useState('');
-  const [credits, setCredits] = useState('');
-  const [gpa, setGpa] = useState(null);
-  const [error, setError] = useState(null);
-
-  // Load courses from LocalStorage on mount
-  useEffect(() => {
-    const storedCourses = JSON.parse(localStorage.getItem('courses') || '[]');
-    setCourses(storedCourses);
-  }, []);
-
-  // Save courses to LocalStorage whenever they change
-  useEffect(() => {
-    localStorage.setItem('courses', JSON.stringify(courses));
-  }, [courses]);
-
-  // Add course
-  const handleAddCourse = (e) => {
-    e.preventDefault();
-    if (!courseName || !grade || !credits) {
-      setError('Please fill in all fields');
-      return;
-    }
-    const gradePoints = { A: 4.0, B: 3.0, C: 2.0, D: 1.0, F: 0.0 };
-    if (!gradePoints[grade]) {
-      setError('Invalid grade');
-      return;
-    }
-    const course = {
-      name: courseName,
-      grade,
-      credits: parseFloat(credits),
-      points: gradePoints[grade] * parseFloat(credits),
-    };
-    setCourses([...courses, course]);
-    setCourseName('');
-    setGrade('');
-    setCredits('');
-    setError(null);
-  };
-
-  // Calculate GPA
-  const calculateGpa = () => {
-    if (courses.length === 0) {
-      setError('No courses to calculate GPA');
-      return;
-    }
-    const totalPoints = courses.reduce((sum, course) => sum + course.points, 0);
-    const totalCredits = courses.reduce((sum, course) => sum + course.credits, 0);
-    const gpa = (totalPoints / totalCredits).toFixed(2);
-    setGpa(parseFloat(gpa));
-    setError(null);
-  };
-
-  // Clear history
-  const clearHistory = () => {
-    setCourses([]);
-    setGpa(null);
-    setError(null);
-    localStorage.removeItem('courses');
-  };
-
   return (
-    <div className="container">
-      <h1>GPA Calculator</h1>
-      {error && <div className="error">{error}</div>}
-      
-      {/* Form */}
-      <form onSubmit={handleAddCourse} className="form">
-        <div className="form-group">
-          <label>Course Name</label>
-          <input
-            type="text"
-            value={courseName}
-            onChange={(e) => setCourseName(e.target.value)}
-            placeholder="e.g., Math 101"
-          />
-        </div>
-        <div className="form-group">
-          <label>Grade</label>
-          <select value={grade} onChange={(e) => setGrade(e.target.value)}>
-            <option value="">Select Grade</option>
-            <option value="A">A</option>
-            <option value="B">B</option>
-            <option value="C">C</option>
-            <option value="D">D</option>
-            <option value="F">F</option>
-          </select>
-        </div>
-        <div className="form-group">
-          <label>Credits</label>
-          <input
-            type="number"
-            value={credits}
-            onChange={(e) => setCredits(e.target.value)}
-            placeholder="e.g., 3"
-            step="0.5"
-            min="0"
-          />
-        </div>
-        <button type="submit" className="button button-blue">Add Course</button>
-      </form>
+    <div className="landing-container">
+      {/* Header Section */}
+      <header className="header">
+        <h1>GPA Calculator</h1>
+        <p>Your simple tool to calculate and manage your academic performance</p>
+      </header>
 
-      {/* Calculate Button */}
-      <button onClick={calculateGpa} className="button button-green">Calculate GPA</button>
-
-      {/* GPA Result */}
-      {gpa && (
-        <div className="result">
-          <h2>Your GPA: {gpa}</h2>
+      {/* Intro Section */}
+      <section className="intro">
+        <h2>Welcome to GPA Calculator</h2>
+        <p>
+          Easily calculate your GPA by adding courses, grades, and credits. Perfect for students who want a quick and reliable way to track their academic progress. Get started now or register to save your semester history!
+        </p>
+        <div className="button-group">
+          <Link href="/calculator">
+            <button className="button button-blue">Get Started</button>
+          </Link>
+          <Link href="/auth">
+            <button className="button button-green">Register/Login</button>
+          </Link>
+          <a href="#about">
+            <button className="button button-outline">About</button>
+          </a>
         </div>
-      )}
+      </section>
 
-      {/* Course History */}
-      {courses.length > 0 && (
-        <div className="history">
-          <h2>Course History</h2>
-          <ul>
-            {courses.map((course, index) => (
-              <li key={index}>
-                {course.name}: {course.grade} ({course.credits} credits)
-              </li>
-            ))}
-          </ul>
-          <button onClick={clearHistory} className="button button-red">Clear History</button>
-        </div>
-      )}
+      {/* About Section */}
+      <section id="about" className="about">
+        <h2>About the App</h2>
+        <p>
+          The GPA Calculator is a user-friendly web application built to help students compute their Grade Point Average with ease. Add your courses, select grades, input credits, and get instant GPA results. Free users can manage courses and calculate GPAs, while registered users (coming soon) will be able to save and track semester histories.
+        </p>
+        <p>
+          Built with Next.js and LocalStorage, this app ensures your data stays secure in your browser. No complicated setup—just start calculating!
+        </p>
+      </section>
     </div>
   );
 }
