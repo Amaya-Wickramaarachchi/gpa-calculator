@@ -65,10 +65,23 @@
   color: white;
 }
 
+.button-red {
+  background-color: #dc3545;
+  color: white;
+}
+
 .button-outline {
   background: none;
   border: 2px solid #007bff;
   color: #007bff;
+}
+
+.button-link {
+  background: none;
+  color: #007bff;
+  border: none;
+  padding: 5px;
+  font-size: 14px;
 }
 
 .button:hover {
@@ -94,7 +107,7 @@
 }
 
 .container {
-  max-width: 800px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 20px;
   font-family: Arial, sans-serif;
@@ -125,11 +138,6 @@
   border-radius: 4px;
 }
 
-.button-red {
-  background-color: #dc3545;
-  color: white;
-}
-
 .result {
   margin-top: 20px;
   padding: 10px;
@@ -141,13 +149,16 @@
   margin-top: 20px;
 }
 
-.history ul {
-  list-style: none;
-  padding: 0;
+.semester-block {
+  margin-bottom: 30px;
 }
 
-.history li {
-  padding: 5px 0;
+.semester-block h3 {
+  margin-bottom: 10px;
+}
+
+.semester-block p {
+  margin-bottom: 10px;
 }
 
 .error {
@@ -155,17 +166,45 @@
   margin-bottom: 10px;
 }
 
+.motivation {
+  color: green;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
 .grade-values {
-  margin-bottom: 20px;
+  margin-top: 30px;
 }
 
-.grade-values ul {
-  list-style: none;
-  padding: 0;
+.grade-table,
+.course-table,
+.semester-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.grade-table th,
+.grade-table td,
+.course-table th,
+.course-table td,
+.semester-table th,
+.semester-table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
+
+.grade-table th,
+.course-table th,
+.semester-table th {
+  background-color: #f0f4f8;
+  font-weight: bold;
+}
+
+.user-info {
   display: flex;
-  gap: 15px;
-}
-
-.grade-values li {
-  font-size: 1.1em;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
 }
