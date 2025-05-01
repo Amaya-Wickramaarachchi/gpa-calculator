@@ -33,8 +33,6 @@ This project was developed for the **System Administration & Maintenance** cours
 ![Calculator Page](docs/images/calculator-page.png)
 *Course form, grade table, and GPA display.*
 
-*Note*: Screenshots should be captured and saved in `docs/images/` before rendering the README.
-
 ## Getting Started
 
 ### Prerequisites
