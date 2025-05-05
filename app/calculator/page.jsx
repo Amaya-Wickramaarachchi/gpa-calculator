@@ -193,7 +193,15 @@ export default function GPACalculator() {
     if (gpa >= 1.0) return "D";
     return "F";
   };
-
+  const getMotivationalQuote = (fgpa) => {
+    if (fgpa >= 3.7) return "🌟 Excellent work! Keep pushing boundaries!";
+    if (fgpa >= 3.3) return "💪 Great job! You're on the path to success!";
+    if (fgpa >= 3.0) return "🎯 Good effort! Stay consistent and you'll go far!";
+    if (fgpa >= 2.5) return "📚 Keep striving! Progress matters more than perfection.";
+    if (fgpa >= 2.0) return "🚀 Don’t give up! You have the potential to rise!";
+    return "🌱 Every step counts. Learn, grow, and never stop trying!";
+  };
+  
   const generatePDF = () => {
     // Use the browser's print functionality to save as PDF
     const printWindow = window.open('', '_blank');
@@ -396,7 +404,15 @@ export default function GPACalculator() {
             <div className={`text-4xl font-bold ${getLetterGradeClass(fgpa)}`}>
               {fgpa.toFixed(2)}
             </div>
+            <p className="mt-3 text-md text-gray-700 italic">
+              {getMotivationalQuote(fgpa)}
+            </p>
           </div>
+
+          
+  
+  
+
 
           {/* Report Action Buttons */}
           <div className="flex flex-wrap justify-center gap-3 mb-8">
