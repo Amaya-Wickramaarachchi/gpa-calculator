@@ -73,8 +73,36 @@ Installs Next.js, React, and devDependencies like Jest.
    npm run test
    ```
   Executes Jest tests in tests/calculateGpa.test.js.
-  
 
+### Deployment to Vercel
 
+This project is optimized for deployment on Vercel with automated CI/CD:
+
+**Option 1: Deploy via Vercel CLI**
+```bash
+# Install Vercel CLI
+npm i -g vercel
+
+# Deploy to Vercel
+vercel --prod
+```
+
+**Option 2: Deploy via GitHub Integration**
+1. Fork this repository
+2. Connect your GitHub account to [Vercel](https://vercel.com)
+3. Import the project from your GitHub repository
+4. Vercel will automatically detect the Next.js framework and deploy
+
+**Option 3: Deploy via GitHub Actions**
+1. Set up the following secrets in your GitHub repository:
+   - `VERCEL_TOKEN`: Your Vercel token
+   - `ORG_ID`: Your Vercel organization ID
+   - `PROJECT_ID`: Your Vercel project ID
+2. Push to the `main` branch to trigger automatic deployment
+
+The project includes:
+- Optimized `vercel.json` configuration
+- GitHub Actions workflow for automated deployment
+- `.vercelignore` for faster deployments
 
 
